@@ -1,0 +1,50 @@
+pragma solidity ^0.4.12;
+
+
+contract ProductCar{
+    
+    // a smart contract for each Product
+    
+    string public productType;  // like car shoes
+    string public brandName;
+    string public model;
+    string public fuelType;
+    address owner;
+    
+    modifier onlyOwner(){
+        require(owner == msg.sender);
+        _;
+    }
+    
+   struct rawMaterial{
+       address rawMaterialId;
+       string rawMaterialType;
+   }
+   
+   rawMaterial[] public rawMaterials;
+    
+    function ProductCar (string _productType, string _brandnName, string _model, string _fuelType) public{
+        productType = _productType;
+        brandName  = _brandnName;
+        model = _model;
+        fuelType = _fuelType;
+        owner = msg.sender;
+    }
+    
+    function addRawMaterial(string rawProductType, address rawProductId) onlyOwner public{
+        rawMaterial memory newRawMaterial;
+        newRawMaterial.rawMaterialId = rawProductId;
+        newRawMaterial.rawMaterialType = rawProductType;
+        rawMaterials.push(newRawMaterial);
+    }
+    
+    function getProductDetails() constant public returns(string _productType, string _brandnName, string _model, 
+            string _fuelType){
+        return (productType, brandName, model, fuelType);
+        
+    }
+
+    function getRawMaterialCount() constant public returns(uint count){
+        return rawMaterials.length;
+    }
+}

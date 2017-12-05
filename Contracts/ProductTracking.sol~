@@ -1,0 +1,31 @@
+pragma solidity ^0.4.12;
+
+contract ProductTracking{
+    
+    struct tracking{
+        uint timeStamp;
+        string location;
+    }
+    
+    tracking[] public trackings;
+   
+    mapping (address => tracking[]) locationHistory;
+    
+    
+    function updateLocation(address _productId, string _location){
+        tracking memory newLocation;
+        newLocation.location = _location;
+        newLocation.timeStamp = now;
+        trackings.push(newLocation);
+        locationHistory[_productId] = trackings;
+    }
+    
+    function getLocationsCount() public constant returns(uint) {
+        return trackings.length;
+    }
+    
+    function getLocation(uint index) public constant returns(uint, string) {
+        return (trackings[index].timeStamp, trackings[index].location);
+    }
+    
+}
