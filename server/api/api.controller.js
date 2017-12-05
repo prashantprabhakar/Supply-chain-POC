@@ -95,6 +95,7 @@ exports.trackProduct = function(req, res){
 	var locations= [];
 	for(var i=0; i< count; i++){
 		var currentLocation = trackingContract.getLocation(i, productId);
+		currentLocation[0] = new Date(currentLocation[0]*1000);		
 		locations.push(currentLocation);
 	}
 

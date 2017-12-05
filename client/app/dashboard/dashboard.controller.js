@@ -13,8 +13,7 @@ angular.module('myApp.dashboard', ['ngRoute'])
 	
     $scope.showLocations = false;
     // track a product
-    $scope.trackProduct = function(productId){    
-        console.log('Check coin balance');   
+    $scope.trackProduct = function(productId){  
         var data = JSON.stringify({productId:productId});
         var config = {
             headers: {               
